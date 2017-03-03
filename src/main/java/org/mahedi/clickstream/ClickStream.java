@@ -70,6 +70,8 @@ public class ClickStream implements Serializable{
 	}
 
 	/**
+	 * This PageType is for the future analytics
+	 * as there is only fixed set of page categories with unique ids in the datasets
 	 * 
 	 * @author mahedi
 	 *
@@ -80,6 +82,7 @@ public class ClickStream implements Serializable{
 	}
 
 	/**
+	 * User is the Bean class for representing each line of the dataset
 	 * 
 	 * @author mahedi
 	 *
@@ -112,14 +115,15 @@ public class ClickStream implements Serializable{
 			System.exit(1);
 		}
 		String file = args[0];
-		//String file = "C:/Users/mahedi/Google Drive/packt-publications/Mastering Machine Learning with Spark/chapter 6 (Extracting Patterns from Clickstream Data)/MSNBC-Dataset/msnbc990928.seq";
 		
-		// initialize spark session for the SQL context
+		// initialize the spark session for the SQL context
 		SparkSession spark = SparkSession.builder().appName("ClickStream").getOrCreate();
+		
 		// find the average clicks of all the users
 		ClickStream clickStream = new ClickStream(spark, file);
-		logger.info("Average clicks on hte clickstream"+clickStream.getAverageClicks());
-
+		double averageClicks = clickStream.getAverageClicks();
+		logger.info("Average clicks on hte clickstream"+averageClicks);
+		
 		// stop the spark session
 		spark.stop();
 
